@@ -53,7 +53,7 @@ export const SettingsPassword = () => {
           </Stack>
         </CardContent>
         <Divider />
-        <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <CardActions sx={{ justifyContent: 'flex-start', paddingLeft: '27px', paddingBottom: '18px' , paddingBottom: '18px'}}>
           <Button variant="contained">Update</Button>
         </CardActions>
       </Card>

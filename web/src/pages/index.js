@@ -6,9 +6,18 @@ import { OverviewLatestOrders } from 'src/sections/overview/overview-latest-orde
 import { OverviewLatestProducts } from 'src/sections/overview/overview-latest-products'
 import { useEffect, useState } from 'react'
 import api from '../services/api'
+import toast, { Toaster } from 'react-hot-toast';
+
+const notify = () => toast('Here is your toast.');
+
 const Page = () => {
   const [products, setProducts] = useState([])
-  const [billing, setBilling] = useState([])
+  const [billing, setBilling] = useState({
+    id: 0,
+    lastHour: 0,
+    lastDay: 0,
+    lastMonth: 0,    
+  })
   const [top10Products, setTop10Products] = useState([])
 
   useEffect(() => {
@@ -30,7 +39,8 @@ const Page = () => {
         )
       })
     } catch (erro) {
-      console.error('Erro ao buscar dados:', erro.message)
+      notify('Error when searching for data: ')
+      console.error('Error when searching for data: ', erro.message)
     }
   }, [])
 
@@ -46,7 +56,7 @@ const Page = () => {
           py: 8,
           paddingBottom: '5px',
         }}
-      >
+      ><Toaster />
         <Container maxWidth="xl">
           <Grid container spacing={3} sx={{ paddingBottom: '5px' }}>
             <Grid xs={12} sm={6} lg={4}>
@@ -84,17 +94,26 @@ const Page = () => {
             <Grid xs={12} md={6} lg={4}>
               <OverviewLatestProducts
                 products={top10Products}
-                sx={{ height: '250px', overflow: 'auto', marginLeft: '35px' }}
+                sx={{ height: '35vh', overflow: 'auto', marginLeft: '35px', minHeight: '250px',              
+                "::-webkit-scrollbar": { width: "5px" },
+                "::-webkit-scrollbar-thumb": { borderRadius: "50px", background: "#6366f126" },
+                "::-webkit-scrollbar-track": { background: "#f2f4f752" }
+              }
+              }
               />
             </Grid>
             <Grid xs={12} md={12} lg={8}>
               <OverviewLatestOrders
                 orders={products}
                 sx={{
-                  height: '250px',
+                  height: '35vh',
                   overflow: 'auto',
                   marginLeft: '35px',
                   minWidth: 550,
+                  minHeight: '250px',
+                  "::-webkit-scrollbar": { width: "5px" },
+                  "::-webkit-scrollbar-thumb": { borderRadius: "50px", background: "#6366f126", cursor:"pointer" },
+                  "::-webkit-scrollbar-track": { background: "#f2f4f752" }
                 }}
               />
             </Grid>
